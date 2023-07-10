@@ -24,3 +24,4 @@ jobs:
     uses: gluonhq/actions/.github/workflows/post-release.yml@main
     with:
       tag: ${{ needs.pre-release.outputs.tag }}
+      nextVersion: ${{ github.event.inputs.nextVersion }}
