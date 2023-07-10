@@ -1,0 +1,14 @@
+name: Test
+on:
+  workflow_dispatch:
+    inputs:
+      nextVersion:
+        description: 'Next development version without "SNAPSHOT". If not provided, the next version will be calculated from the pom'
+        required: false
+        type: string
+
+jobs:
+  pre-release:
+    uses: gluonhq/actions/.github/workflows/pre-release.yml@main
+
+
