@@ -10,5 +10,12 @@ on:
 jobs:
   pre-release:
     uses: gluonhq/actions/.github/workflows/pre-release.yml@main
+  release:
+    needs: pre-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: do release
+        run: echo "release successful"
   post-release:
+    needs: release
     uses: gluonhq/actions/.github/workflows/post-release.yml@main
