@@ -1,4 +1,4 @@
-name: Test
+name: Release root
 on:
   workflow_dispatch:
     inputs:
@@ -10,5 +10,5 @@ on:
 jobs:
   pre-release:
     uses: gluonhq/actions/.github/workflows/pre-release.yml@main
-
-
+  post-release:
+    uses: gluonhq/actions/.github/workflows/post-release.yml@main
