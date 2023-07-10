@@ -30,3 +30,7 @@ jobs:
     with:
       tag: ${{ needs.pre-release.outputs.tag }}
       nextVersion: ${{ github.event.inputs.nextVersion }}
+      buildDir: emoji
+      depProperty: emoji.version
+      depDirectory: samples
+
