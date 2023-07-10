@@ -1,0 +1,32 @@
+name: Release Emoji
+on:
+  workflow_dispatch:
+    inputs:
+      nextVersion:
+        description: 'Next development version without "SNAPSHOT". If not provided, the next version will be calculated from the pom'
+        required: false
+        type: string
+
+jobs:
+  pre-release:
+    uses: gluonhq/actions/.github/workflows/pre-release.yml@main
+    with:
+      buildDir: emoji
+      depProperty: emoji.version
+      depDirectory: samples
+
+  release:
+    needs: pre-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 5
+          ref: ${{ needs.pre-release.outputs.tag }}
+  post-release:
+    needs: [pre-release, release]
+    uses: gluonhq/actions/.github/workflows/post-release.yml@main
+    with:
+      tag: ${{ needs.pre-release.outputs.tag }}
+      nextVersion: ${{ github.event.inputs.nextVersion }}
