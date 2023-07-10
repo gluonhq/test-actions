@@ -14,8 +14,13 @@ jobs:
     needs: pre-release
     runs-on: ubuntu-latest
     steps:
-      - name: do release
-        run: echo "release successful"
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 5
+          ref: ${{ needs.pre-release.outputs.tag }}
   post-release:
-    needs: release
+    needs: [pre-release, release]
     uses: gluonhq/actions/.github/workflows/post-release.yml@main
+    with:
+      tag: ${{ needs.pre-release.outputs.tag }}
